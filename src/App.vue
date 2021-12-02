@@ -10,6 +10,8 @@
       <!--SmallCard Component btnType va chez l'enfant-->
       <div class="grid grid-cols-3 gap-4 ml-5 small " >
       <SmallCard :timeframes='btnValue' v-for='data in datas' :key="data.title" :dataObj='data' />
+      <!--Une autre smallCard sera créé si on rajoute des données dans le json OU si on l'appel a part pour l'inserer totalement ailleurs, dans ce cas il faudra creer un objet dataObj afin de respecter la structure de donnée de la carte a sa création-->
+      
       </div>
       </div>
     
