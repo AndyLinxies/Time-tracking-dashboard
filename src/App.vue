@@ -1,63 +1,43 @@
 <template>
   <div id="app">
-    <div class="flex mt-40">
+      <!--REMARQUE: On pourrais le mettre dans un component enfant et passer ses variables avec $emit etc.. au parent, puis du parent à la small card-->
+      <!--Pour les variables et les fonctions donner le nom de ce qu'ils font-->
+      <!--Boucler direct sur l'appel du smallCard au lieu de boucler dans le component-->
+
+      <div class="flex mt-20">
       <!--BigCard-->
-      <div
-        class="bg-gray-100 items-center justify-center bigCard rounded-xl ml-20"
-      >
-        <div class="pt-10 ml-8">
-          <img src="./assets/images/image-jeremy.png" width="90px" alt="" />
-        </div>
-
-        <div class="p-5">
-          <p class="mt-2 text-sm text-gray-600">Report for</p>
-          <p class="mt-1 text-gray-500 text-xl">
-            JEREMY <br />
-            ROBSON
-          </p>
-        </div>
-        <div class="under rounded-xl">
-          <div class="pt-10 pl-10 text-blue-500">
-
-            <!--multiple conditions in :class-->
-            <button :class="{'text-white':clicked ==true && btnType=='daily'}  " @click="getClick('daily')">Daily</button><br />
-
-            <button :class="{'text-white':clicked ==true && btnType=='weekly'}  " @click="getClick('weekly')">Weekly</button><br />
-
-            <button :class="{'text-white':clicked ==true && btnType=='monthly'}  " @click="getClick('monthly')">Monthly</button><br />
-          </div>
-        </div>
-      </div>
-      
+      <BigCard @getBtnValue="btnVal" />
       <!--SmallCard Component btnType va chez l'enfant-->
-      <SmallCard :pressedBtn='btnType'  />
-    </div>
+      <div class="grid grid-cols-3 gap-4 ml-5 small " >
+      <SmallCard :timeframes='btnValue' v-for='data in datas' :key="data.title" :dataObj='data' />
+      </div>
+      </div>
+    
   </div>
 </template>
 
 <script>
 import SmallCard from "./components/SmallCard.vue";
-
+import BigCard from "./components/BigCard"
 //import du json.On lui donne le nom qu'on veut
-// import jsonDatas from '../exo-ressources/data.json'
+import jsonDatas from '../exo-ressources/data.json'
 
 export default {
   name: "App",
   components: {
-    SmallCard,
+    SmallCard,BigCard
   },
   data() {
     return {
-      clicked: false,
-      btnType: "daily",
-    };
+      btnValue:'daily',
+      datas: jsonDatas
+    }
   },
   methods: {
-    getClick(value) {
-      this.btnType = value;
-      this.clicked=true;
-      console.log(this.btnType);
-    },
+    btnVal(value){
+      console.log(value)
+      this.btnValue=value
+    }
   },
 };
 </script>
@@ -66,13 +46,8 @@ export default {
 html {
   background-color: hsl(226, 43%, 10%);
 }
-.bigCard {
-  width: 300px;
-  height: 450px;
-  background-color: hsl(246, 80%, 60%);
+.small{
+  margin-top: 12%
 }
-.under {
-  background-color: hsl(235, 46%, 20%);
-  height: 200px;
-}
+
 </style>
