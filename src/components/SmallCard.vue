@@ -11,7 +11,12 @@
             }} hrs</p>
 
         <!--Infos last week-->
-        <p>Last week- {{
+        <p>
+        {{timeframes == "daily" ? 'Last day': null}}
+        {{timeframes == "weekly" ? 'Last week': null}}
+        {{timeframes == "monthly" ? 'Last month': null}}
+        
+        - {{
             timeframes == "daily"? dataObj.timeframes.daily.previous : 
             timeframes == "weekly"? dataObj.timeframes.weekly.previous : 
             timeframes == "monthly"? dataObj.timeframes.monthly.previous :null
